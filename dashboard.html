@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Contentply</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-card {
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+
+    <!-- Navigation -->
+    <nav class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <a href="index.html" class="text-2xl font-bold gradient-text">Contentply</a>
+                </div>
+                <div class="flex items-center space-x-6">
+                    <a href="app.html" class="text-gray-600 hover:text-gray-900">
+                        <i class="fas fa-magic mr-1"></i> Repurpose
+                    </a>
+                    <a href="dashboard.html" class="text-purple-600 font-semibold">
+                        <i class="fas fa-chart-bar mr-1"></i> Dashboard
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+        <!-- Header -->
+        <div class="mb-8">
+            <h1 class="text-3xl font-bold text-gray-900 mb-2">Dashboard</h1>
+            <p class="text-gray-600">Track your content repurposing activity and usage</p>
+        </div>
+
+        <!-- Stats Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+
+            <!-- Credits Remaining -->
+            <div class="stat-card bg-white rounded-xl shadow-lg p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-coins text-2xl text-purple-600"></i>
+                    </div>
+                    <span class="text-sm font-medium text-gray-500">This Month</span>
+                </div>
+                <div class="text-3xl font-bold text-gray-900 mb-1" id="credits-stat">15/20</div>
+                <div class="text-sm text-gray-600">Credits Remaining</div>
+                <div class="mt-4 w-full bg-gray-200 rounded-full h-2">
+                    <div class="bg-gradient-to-r from-purple-600 to-indigo-600 h-2 rounded-full" style="width: 75%"></div>
+                </div>
+            </div>
+
+            <!-- Total Repurposed -->
+            <div class="stat-card bg-white rounded-xl shadow-lg p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-sync-alt text-2xl text-blue-600"></i>
+                    </div>
+                    <span class="text-sm font-medium text-gray-500">All Time</span>
+                </div>
+                <div class="text-3xl font-bold text-gray-900 mb-1" id="total-repurposed">23</div>
+                <div class="text-sm text-gray-600">Posts Repurposed</div>
+            </div>
+
+            <!-- Social Posts Created -->
+            <div class="stat-card bg-white rounded-xl shadow-lg p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-share-alt text-2xl text-green-600"></i>
+                    </div>
+                    <span class="text-sm font-medium text-gray-500">Generated</span>
+                </div>
+                <div class="text-3xl font-bold text-gray-900 mb-1" id="posts-created">575</div>
+                <div class="text-sm text-gray-600">Social Posts Created</div>
+            </div>
+
+            <!-- Time Saved -->
+            <div class="stat-card bg-white rounded-xl shadow-lg p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-clock text-2xl text-orange-600"></i>
+                    </div>
+                    <span class="text-sm font-medium text-gray-500">Estimated</span>
+                </div>
+                <div class="text-3xl font-bold text-gray-900 mb-1" id="time-saved">46</div>
+                <div class="text-sm text-gray-600">Hours Saved</div>
+            </div>
+
+        </div>
+
+        <!-- Charts Row -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+
+            <!-- Usage Chart -->
+            <div class="bg-white rounded-xl shadow-lg p-6">
+                <h3 class="text-lg font-bold text-gray-900 mb-4">Usage This Month</h3>
+                <canvas id="usageChart"></canvas>
+            </div>
+
+            <!-- Platform Distribution -->
+            <div class="bg-white rounded-xl shadow-lg p-6">
+                <h3 class="text-lg font-bold text-gray-900 mb-4">Content by Platform</h3>
+                <canvas id="platformChart"></canvas>
+            </div>
+
+        </div>
+
+        <!-- Recent Activity -->
+        <div class="bg-white rounded-xl shadow-lg p-6">
+            <h3 class="text-lg font-bold text-gray-900 mb-4">Recent Activity</h3>
+
+            <div class="space-y-4" id="recent-activity">
+
+                <!-- Activity Item -->
+                <div class="flex items-start space-x-4 pb-4 border-b border-gray-200">
+                    <div class="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                        <i class="fas fa-magic text-purple-600"></i>
+                    </div>
+                    <div class="flex-1">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h4 class="font-semibold text-gray-900">Content Repurposed</h4>
+                                <p class="text-sm text-gray-600">How to Build a SaaS in 5 Days</p>
+                            </div>
+                            <span class="text-xs text-gray-500">2 hours ago</span>
+                        </div>
+                        <div class="flex space-x-2 mt-2">
+                            <span class="text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded">LinkedIn</span>
+                            <span class="text-xs bg-sky-100 text-sky-600 px-2 py-1 rounded">Twitter</span>
+                            <span class="text-xs bg-pink-100 text-pink-600 px-2 py-1 rounded">Instagram</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Activity Item -->
+                <div class="flex items-start space-x-4 pb-4 border-b border-gray-200">
+                    <div class="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                        <i class="fas fa-magic text-purple-600"></i>
+                    </div>
+                    <div class="flex-1">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h4 class="font-semibold text-gray-900">Content Repurposed</h4>
+                                <p class="text-sm text-gray-600">10 Marketing Strategies That Actually Work</p>
+                            </div>
+                            <span class="text-xs text-gray-500">Yesterday</span>
+                        </div>
+                        <div class="flex space-x-2 mt-2">
+                            <span class="text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded">LinkedIn</span>
+                            <span class="text-xs bg-red-100 text-red-600 px-2 py-1 rounded">Email</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Activity Item -->
+                <div class="flex items-start space-x-4">
+                    <div class="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                        <i class="fas fa-magic text-purple-600"></i>
+                    </div>
+                    <div class="flex-1">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h4 class="font-semibold text-gray-900">Content Repurposed</h4>
+                                <p class="text-sm text-gray-600">The Ultimate Guide to Content Marketing</p>
+                            </div>
+                            <span class="text-xs text-gray-500">2 days ago</span>
+                        </div>
+                        <div class="flex space-x-2 mt-2">
+                            <span class="text-xs bg-sky-100 text-sky-600 px-2 py-1 rounded">Twitter</span>
+                            <span class="text-xs bg-pink-100 text-pink-600 px-2 py-1 rounded">Instagram</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // Usage Chart
+        const usageCtx = document.getElementById('usageChart').getContext('2d');
+        const usageChart = new Chart(usageCtx, {
+            type: 'line',
+            data: {
+                labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
+                datasets: [{
+                    label: 'Credits Used',
+                    data: [3, 5, 7, 5],
+                    borderColor: '#667eea',
+                    backgroundColor: 'rgba(102, 126, 234, 0.1)',
+                    tension: 0.4,
+                    fill: true
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            stepSize: 2
+                        }
+                    }
+                }
+            }
+        });
+
+        // Platform Chart
+        const platformCtx = document.getElementById('platformChart').getContext('2d');
+        const platformChart = new Chart(platformCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['LinkedIn', 'Twitter', 'Instagram', 'Email'],
+                datasets: [{
+                    data: [35, 30, 25, 10],
+                    backgroundColor: [
+                        '#0077b5',
+                        '#1da1f2',
+                        '#e4405f',
+                        '#ea4335'
+                    ]
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
+            }
+        });
+
+        // Load dashboard data from localStorage
+        function loadDashboardData() {
+            const usage = JSON.parse(localStorage.getItem('contentply_usage') || '{"used": 5, "total": 20}');
+            const stats = JSON.parse(localStorage.getItem('contentply_stats') || '{"total": 23, "posts": 575, "hours": 46}');
+
+            document.getElementById('credits-stat').textContent = `${usage.total - usage.used}/${usage.total}`;
+            document.getElementById('total-repurposed').textContent = stats.total;
+            document.getElementById('posts-created').textContent = stats.posts;
+            document.getElementById('time-saved').textContent = stats.hours;
+        }
+
+        loadDashboardData();
+    </script>
+
+</body>
+</html>

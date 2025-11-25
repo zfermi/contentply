@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contentply - Turn 1 Blog Post Into 10+ Social Posts in 60 Seconds</title>
+    <meta name="description" content="AI-powered content repurposer for newsletter writers, coaches, and indie hackers. Transform your blog posts into platform-specific social content instantly.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .feature-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.2);
+        }
+
+        .cta-button {
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(102, 126, 234, 0.6);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+
+    <!-- Navigation -->
+    <nav class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <span class="text-2xl font-bold gradient-text">Contentply</span>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#features" class="text-gray-600 hover:text-gray-900">Features</a>
+                    <a href="#pricing" class="text-gray-600 hover:text-gray-900">Pricing</a>
+                    <a href="#how-it-works" class="text-gray-600 hover:text-gray-900">How It Works</a>
+                    <a href="app.html" class="bg-gradient-to-r from-purple-600 to-indigo-600 text-white px-6 py-2 rounded-lg hover:opacity-90 transition">Get Started</a>
+                </div>
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="text-gray-600">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t">
+            <div class="px-4 pt-2 pb-4 space-y-2">
+                <a href="#features" class="block px-3 py-2 text-gray-600 hover:bg-gray-50 rounded">Features</a>
+                <a href="#pricing" class="block px-3 py-2 text-gray-600 hover:bg-gray-50 rounded">Pricing</a>
+                <a href="#how-it-works" class="block px-3 py-2 text-gray-600 hover:bg-gray-50 rounded">How It Works</a>
+                <a href="app.html" class="block px-3 py-2 bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded text-center">Get Started</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="gradient-bg text-white py-20 md:py-32">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h1 class="text-4xl md:text-6xl font-bold mb-6">
+                Turn 1 Blog Post Into<br>
+                <span class="text-yellow-300">10+ Social Posts</span> in 60 Seconds
+            </h1>
+            <p class="text-xl md:text-2xl mb-8 text-purple-100 max-w-3xl mx-auto">
+                Stop wasting hours repurposing content. Let AI transform your blog posts into platform-specific social media content instantly.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <a href="app.html" class="cta-button bg-white text-purple-600 px-8 py-4 rounded-lg text-lg font-semibold inline-flex items-center">
+                    Start Repurposing Free
+                    <i class="fas fa-arrow-right ml-2"></i>
+                </a>
+                <a href="#how-it-works" class="border-2 border-white text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-white hover:text-purple-600 transition">
+                    See How It Works
+                </a>
+            </div>
+            <p class="mt-6 text-purple-200">
+                <i class="fas fa-check-circle mr-2"></i>No credit card required
+                <span class="mx-3">•</span>
+                <i class="fas fa-bolt mr-2"></i>Results in 60 seconds
+            </p>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="py-12 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                <div>
+                    <div class="text-4xl font-bold gradient-text mb-2">10+</div>
+                    <div class="text-gray-600">Variations Per Post</div>
+                </div>
+                <div>
+                    <div class="text-4xl font-bold gradient-text mb-2">60s</div>
+                    <div class="text-gray-600">Average Processing Time</div>
+                </div>
+                <div>
+                    <div class="text-4xl font-bold gradient-text mb-2">5</div>
+                    <div class="text-gray-600">Social Platforms</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-5xl font-bold text-gray-900 mb-4">
+                    Everything You Need to <span class="gradient-text">Scale Your Content</span>
+                </h2>
+                <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                    Designed for newsletter writers, coaches, and indie hackers who want to maximize their content reach.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Feature 1 -->
+                <div class="feature-card bg-white p-8 rounded-xl shadow-lg">
+                    <div class="w-14 h-14 bg-purple-100 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fab fa-linkedin text-2xl text-purple-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">LinkedIn Posts</h3>
+                    <p class="text-gray-600">
+                        Get 5 variations: story-based, tips list, insights, questions, and announcements. Ready to post.
+                    </p>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="feature-card bg-white p-8 rounded-xl shadow-lg">
+                    <div class="w-14 h-14 bg-blue-100 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fab fa-twitter text-2xl text-blue-500"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Twitter Threads</h3>
+                    <p class="text-gray-600">
+                        10 different thread hooks with complete 8-12 tweet threads. Optimized for engagement.
+                    </p>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="feature-card bg-white p-8 rounded-xl shadow-lg">
+                    <div class="w-14 h-14 bg-pink-100 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fab fa-instagram text-2xl text-pink-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Instagram Captions</h3>
+                    <p class="text-gray-600">
+                        5 different caption styles with hooks and hashtags. Perfect for carousels and posts.
+                    </p>
+                </div>
+
+                <!-- Feature 4 -->
+                <div class="feature-card bg-white p-8 rounded-xl shadow-lg">
+                    <div class="w-14 h-14 bg-red-100 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fas fa-envelope text-2xl text-red-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Email Newsletters</h3>
+                    <p class="text-gray-600">
+                        Reformatted for email with sections, hooks, and CTAs. Ready for your subscribers.
+                    </p>
+                </div>
+
+                <!-- Feature 5 -->
+                <div class="feature-card bg-white p-8 rounded-xl shadow-lg">
+                    <div class="w-14 h-14 bg-green-100 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fas fa-copy text-2xl text-green-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">One-Click Copy</h3>
+                    <p class="text-gray-600">
+                        Copy any variation with a single click. Export all as PDF for your content calendar.
+                    </p>
+                </div>
+
+                <!-- Feature 6 -->
+                <div class="feature-card bg-white p-8 rounded-xl shadow-lg">
+                    <div class="w-14 h-14 bg-indigo-100 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fas fa-bolt text-2xl text-indigo-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Lightning Fast</h3>
+                    <p class="text-gray-600">
+                        Powered by Claude AI. Get all variations in under 60 seconds. No waiting around.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section id="how-it-works" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-5xl font-bold text-gray-900 mb-4">
+                    How It Works
+                </h2>
+                <p class="text-xl text-gray-600">
+                    Three simple steps to content repurposing mastery
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+                <div class="text-center">
+                    <div class="w-20 h-20 bg-gradient-to-r from-purple-600 to-indigo-600 rounded-full flex items-center justify-center text-white text-3xl font-bold mx-auto mb-6">
+                        1
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Paste Your Content</h3>
+                    <p class="text-gray-600">
+                        Drop in a URL or paste your blog post text. Contentply works with any format.
+                    </p>
+                </div>
+
+                <div class="text-center">
+                    <div class="w-20 h-20 bg-gradient-to-r from-purple-600 to-indigo-600 rounded-full flex items-center justify-center text-white text-3xl font-bold mx-auto mb-6">
+                        2
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">AI Does The Magic</h3>
+                    <p class="text-gray-600">
+                        Our AI analyzes your content and creates platform-specific variations in 60 seconds.
+                    </p>
+                </div>
+
+                <div class="text-center">
+                    <div class="w-20 h-20 bg-gradient-to-r from-purple-600 to-indigo-600 rounded-full flex items-center justify-center text-white text-3xl font-bold mx-auto mb-6">
+                        3
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Copy & Post</h3>
+                    <p class="text-gray-600">
+                        Pick your favorite variations, copy with one click, and post across all platforms.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-5xl font-bold text-gray-900 mb-4">
+                    Simple, Transparent Pricing
+                </h2>
+                <p class="text-xl text-gray-600">
+                    No hidden fees. Cancel anytime.
+                </p>
+            </div>
+
+            <div class="max-w-lg mx-auto">
+                <div class="bg-white rounded-2xl shadow-2xl overflow-hidden border-4 border-purple-600">
+                    <div class="bg-gradient-to-r from-purple-600 to-indigo-600 text-white py-6 px-8 text-center">
+                        <h3 class="text-2xl font-bold">Pro Plan</h3>
+                        <p class="text-purple-200 mt-2">For serious content creators</p>
+                    </div>
+
+                    <div class="p-8">
+                        <div class="text-center mb-8">
+                            <div class="text-5xl font-bold text-gray-900">$15</div>
+                            <div class="text-gray-600 mt-2">per month</div>
+                        </div>
+
+                        <ul class="space-y-4 mb-8">
+                            <li class="flex items-center">
+                                <i class="fas fa-check-circle text-green-500 text-xl mr-3"></i>
+                                <span>20 repurposing credits/month</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check-circle text-green-500 text-xl mr-3"></i>
+                                <span>LinkedIn posts (5 variations each)</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check-circle text-green-500 text-xl mr-3"></i>
+                                <span>Twitter threads (10 variations each)</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check-circle text-green-500 text-xl mr-3"></i>
+                                <span>Instagram captions (5 variations each)</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check-circle text-green-500 text-xl mr-3"></i>
+                                <span>Email newsletter formatting</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check-circle text-green-500 text-xl mr-3"></i>
+                                <span>Export to PDF</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check-circle text-green-500 text-xl mr-3"></i>
+                                <span>Priority support</span>
+                            </li>
+                        </ul>
+
+                        <a href="app.html" class="block w-full cta-button bg-gradient-to-r from-purple-600 to-indigo-600 text-white text-center py-4 rounded-lg text-lg font-semibold">
+                            Start Free Trial
+                        </a>
+                        <p class="text-center text-sm text-gray-500 mt-4">
+                            No credit card required to start
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="gradient-bg text-white py-20">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-3xl md:text-5xl font-bold mb-6">
+                Ready to 10x Your Content Output?
+            </h2>
+            <p class="text-xl mb-8 text-purple-100">
+                Join newsletter writers, coaches, and indie hackers who are scaling their content effortlessly.
+            </p>
+            <a href="app.html" class="cta-button bg-white text-purple-600 px-8 py-4 rounded-lg text-lg font-semibold inline-flex items-center">
+                Get Started Free
+                <i class="fas fa-arrow-right ml-2"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-400 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div class="col-span-1 md:col-span-2">
+                    <span class="text-2xl font-bold text-white">Contentply</span>
+                    <p class="mt-4 text-gray-400">
+                        AI-powered content repurposer for modern creators.
+                        Turn 1 blog post into 10+ social posts in 60 seconds.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold mb-4">Product</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#features" class="hover:text-white">Features</a></li>
+                        <li><a href="#pricing" class="hover:text-white">Pricing</a></li>
+                        <li><a href="#how-it-works" class="hover:text-white">How It Works</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold mb-4">Support</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="hover:text-white">Documentation</a></li>
+                        <li><a href="#" class="hover:text-white">Contact</a></li>
+                        <li><a href="#" class="hover:text-white">Privacy Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center">
+                <p>&copy; 2025 Contentply. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    // Close mobile menu if open
+                    mobileMenu.classList.add('hidden');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

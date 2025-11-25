@@ -1,0 +1,284 @@
+{
+  "name": "Contentply - Main Repurpose Workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "repurpose",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [250, 300],
+      "webhookId": "contentply-repurpose"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{$json[\"body\"][\"apiKey\"]}}",
+              "operation": "isNotEmpty"
+            }
+          ]
+        }
+      },
+      "name": "Check API Key",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [450, 300]
+    },
+    {
+      "parameters": {
+        "url": "={{$json[\"body\"][\"content\"]}}",
+        "options": {}
+      },
+      "name": "Fetch URL Content",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 3,
+      "position": [650, 200],
+      "notes": "Only runs if isUrl is true"
+    },
+    {
+      "parameters": {
+        "model": "claude-3-5-sonnet-20241022",
+        "text": "=Turn this blog post into 5 LinkedIn posts with these styles:\n1. Story-based post\n2. Tips list\n3. Insight/observation\n4. Engagement question\n5. Announcement style\n\nContent:\n{{$json[\"content\"]}}\n\nReturn as JSON array with format: [{\"type\": \"Story-based\", \"content\": \"...\"}]"
+      },
+      "name": "Claude - LinkedIn Posts",
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1,
+      "position": [850, 100],
+      "credentials": {
+        "anthropicApi": {
+          "id": "1",
+          "name": "Anthropic account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": "claude-3-5-sonnet-20241022",
+        "text": "=Create 10 Twitter thread variations from this content. For each:\n1. Write an engaging hook/first tweet\n2. Create a complete thread (8-12 tweets)\n3. Include a CTA at the end\n\nContent:\n{{$json[\"content\"]}}\n\nReturn as JSON array with format: [{\"hook\": \"...\", \"thread\": [\"tweet1\", \"tweet2\", ...]}]"
+      },
+      "name": "Claude - Twitter Threads",
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1,
+      "position": [850, 250],
+      "credentials": {
+        "anthropicApi": {
+          "id": "1",
+          "name": "Anthropic account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": "claude-3-5-sonnet-20241022",
+        "text": "=Create 5 Instagram caption variations with different styles:\n1. Motivational\n2. Educational\n3. Story-based\n4. Behind-the-scenes\n5. Value-packed\n\nFor each caption:\n- Include hook\n- Add relevant emojis\n- Include 10-15 hashtags\n\nContent:\n{{$json[\"content\"]}}\n\nReturn as JSON array with format: [{\"style\": \"Motivational\", \"content\": \"...\"}]"
+      },
+      "name": "Claude - Instagram Captions",
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1,
+      "position": [850, 400],
+      "credentials": {
+        "anthropicApi": {
+          "id": "1",
+          "name": "Anthropic account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": "claude-3-5-sonnet-20241022",
+        "text": "=Convert this blog post into an engaging email newsletter format with:\n1. Catchy subject line\n2. Personal greeting\n3. Main content broken into sections\n4. Clear CTAs\n5. P.S. section\n\nContent:\n{{$json[\"content\"]}}\n\nReturn as JSON with format: {\"subject\": \"...\", \"content\": \"...\"}"
+      },
+      "name": "Claude - Email Newsletter",
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1,
+      "position": [850, 550],
+      "credentials": {
+        "anthropicApi": {
+          "id": "1",
+          "name": "Anthropic account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": "claude-3-5-sonnet-20241022",
+        "text": "=Create a comprehensive summary of this content including:\n1. Key points and takeaways\n2. Main ideas\n3. Actionable insights\n4. Recommended use cases for each platform\n\nContent:\n{{$json[\"content\"]}}\n\nReturn as JSON with format: {\"title\": \"...\", \"content\": \"...\"}"
+      },
+      "name": "Claude - Summary",
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1,
+      "position": [850, 700],
+      "credentials": {
+        "anthropicApi": {
+          "id": "1",
+          "name": "Anthropic account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Combine all results into single response\nconst linkedin = $input.first().json;\nconst twitter = $input.all()[1].json;\nconst instagram = $input.all()[2].json;\nconst email = $input.all()[3].json;\nconst summary = $input.all()[4].json;\n\nreturn {\n  success: true,\n  results: {\n    linkedin: JSON.parse(linkedin.response || '[]'),\n    twitter: JSON.parse(twitter.response || '[]'),\n    instagram: JSON.parse(instagram.response || '[]'),\n    email: [JSON.parse(email.response || '{}')],\n    summary: [JSON.parse(summary.response || '{}')]\n  },\n  timestamp: new Date().toISOString()\n};"
+      },
+      "name": "Combine Results",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1050, 350]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{$json}}"
+      },
+      "name": "Response",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [1250, 350]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "{\"success\": false, \"error\": \"Invalid API key\"}"
+      },
+      "name": "Error Response",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [650, 450]
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Check API Key",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check API Key": {
+      "main": [
+        [
+          {
+            "node": "Fetch URL Content",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Error Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch URL Content": {
+      "main": [
+        [
+          {
+            "node": "Claude - LinkedIn Posts",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Claude - Twitter Threads",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Claude - Instagram Captions",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Claude - Email Newsletter",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Claude - Summary",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Claude - LinkedIn Posts": {
+      "main": [
+        [
+          {
+            "node": "Combine Results",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Claude - Twitter Threads": {
+      "main": [
+        [
+          {
+            "node": "Combine Results",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Claude - Instagram Captions": {
+      "main": [
+        [
+          {
+            "node": "Combine Results",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Claude - Email Newsletter": {
+      "main": [
+        [
+          {
+            "node": "Combine Results",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Claude - Summary": {
+      "main": [
+        [
+          {
+            "node": "Combine Results",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Combine Results": {
+      "main": [
+        [
+          {
+            "node": "Response",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {},
+  "staticData": null
+}

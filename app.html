@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contentply - AI Content Repurposer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .tab-active {
+            border-bottom: 3px solid #667eea;
+            color: #667eea;
+        }
+
+        .spinner {
+            border: 3px solid #f3f4f6;
+            border-top: 3px solid #667eea;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .result-card {
+            transition: all 0.3s ease;
+        }
+
+        .result-card:hover {
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.1);
+        }
+
+        .copy-button {
+            transition: all 0.2s ease;
+        }
+
+        .copy-button:hover {
+            transform: scale(1.05);
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+
+    <!-- Navigation -->
+    <nav class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <a href="index.html" class="text-2xl font-bold gradient-text">Contentply</a>
+                </div>
+                <div class="flex items-center space-x-6">
+                    <div class="text-sm">
+                        <span class="text-gray-600">Credits:</span>
+                        <span id="credits-remaining" class="font-bold text-purple-600">20/20</span>
+                    </div>
+                    <a href="dashboard.html" class="text-gray-600 hover:text-gray-900">
+                        <i class="fas fa-chart-bar mr-1"></i> Dashboard
+                    </a>
+                    <button id="settings-button" class="text-gray-600 hover:text-gray-900">
+                        <i class="fas fa-cog"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+        <!-- Input Section -->
+        <div class="bg-white rounded-xl shadow-lg p-8 mb-8">
+            <h1 class="text-3xl font-bold text-gray-900 mb-2">
+                Repurpose Your Content
+            </h1>
+            <p class="text-gray-600 mb-6">
+                Paste a URL or your content below, and watch AI transform it into platform-specific social posts.
+            </p>
+
+            <!-- Input Type Selector -->
+            <div class="flex space-x-4 mb-6">
+                <button id="url-tab" class="px-6 py-2 font-medium text-purple-600 border-b-2 border-purple-600">
+                    <i class="fas fa-link mr-2"></i>URL
+                </button>
+                <button id="text-tab" class="px-6 py-2 font-medium text-gray-500">
+                    <i class="fas fa-file-alt mr-2"></i>Text
+                </button>
+            </div>
+
+            <!-- URL Input -->
+            <div id="url-input-section">
+                <label class="block text-sm font-medium text-gray-700 mb-2">
+                    Blog Post URL
+                </label>
+                <input
+                    type="url"
+                    id="content-url"
+                    placeholder="https://yourblog.com/amazing-post"
+                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent"
+                >
+            </div>
+
+            <!-- Text Input -->
+            <div id="text-input-section" class="hidden">
+                <label class="block text-sm font-medium text-gray-700 mb-2">
+                    Paste Your Content
+                </label>
+                <textarea
+                    id="content-text"
+                    rows="10"
+                    placeholder="Paste your blog post content here..."
+                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent"
+                ></textarea>
+            </div>
+
+            <!-- Repurpose Button -->
+            <button
+                id="repurpose-button"
+                class="mt-6 w-full bg-gradient-to-r from-purple-600 to-indigo-600 text-white py-4 rounded-lg text-lg font-semibold hover:opacity-90 transition flex items-center justify-center"
+            >
+                <i class="fas fa-magic mr-2"></i>
+                Repurpose Content
+            </button>
+
+            <!-- Error Message -->
+            <div id="error-message" class="hidden mt-4 p-4 bg-red-50 border border-red-200 rounded-lg text-red-600">
+                <i class="fas fa-exclamation-circle mr-2"></i>
+                <span id="error-text"></span>
+            </div>
+        </div>
+
+        <!-- Loading State -->
+        <div id="loading-section" class="hidden bg-white rounded-xl shadow-lg p-12 mb-8 text-center">
+            <div class="spinner mx-auto mb-4"></div>
+            <h3 class="text-xl font-semibold text-gray-900 mb-2">AI is repurposing your content...</h3>
+            <p class="text-gray-600">This usually takes 30-60 seconds</p>
+        </div>
+
+        <!-- Results Section -->
+        <div id="results-section" class="hidden">
+
+            <!-- Results Header -->
+            <div class="bg-white rounded-xl shadow-lg p-6 mb-6">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center">
+                    <div>
+                        <h2 class="text-2xl font-bold text-gray-900 mb-2">
+                            <i class="fas fa-check-circle text-green-500 mr-2"></i>
+                            Content Repurposed Successfully!
+                        </h2>
+                        <p class="text-gray-600">Choose a platform below to view your variations</p>
+                    </div>
+                    <div class="mt-4 md:mt-0 flex space-x-3">
+                        <button id="export-pdf-button" class="px-6 py-3 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition">
+                            <i class="fas fa-file-pdf mr-2"></i>Export PDF
+                        </button>
+                        <button id="new-content-button" class="px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition">
+                            <i class="fas fa-plus mr-2"></i>New Content
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Platform Tabs -->
+            <div class="bg-white rounded-xl shadow-lg mb-6">
+                <div class="flex overflow-x-auto border-b">
+                    <button class="platform-tab tab-active flex-1 min-w-[120px] px-6 py-4 font-medium text-sm" data-platform="linkedin">
+                        <i class="fab fa-linkedin mr-2"></i>LinkedIn (5)
+                    </button>
+                    <button class="platform-tab flex-1 min-w-[120px] px-6 py-4 font-medium text-sm text-gray-500" data-platform="twitter">
+                        <i class="fab fa-twitter mr-2"></i>Twitter (10)
+                    </button>
+                    <button class="platform-tab flex-1 min-w-[120px] px-6 py-4 font-medium text-sm text-gray-500" data-platform="instagram">
+                        <i class="fab fa-instagram mr-2"></i>Instagram (5)
+                    </button>
+                    <button class="platform-tab flex-1 min-w-[120px] px-6 py-4 font-medium text-sm text-gray-500" data-platform="email">
+                        <i class="fas fa-envelope mr-2"></i>Email (1)
+                    </button>
+                    <button class="platform-tab flex-1 min-w-[120px] px-6 py-4 font-medium text-sm text-gray-500" data-platform="summary">
+                        <i class="fas fa-file-alt mr-2"></i>Summary (1)
+                    </button>
+                </div>
+            </div>
+
+            <!-- Results Content -->
+            <div id="results-content" class="space-y-4">
+                <!-- Dynamic content will be inserted here -->
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Settings Modal -->
+    <div id="settings-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-xl shadow-2xl max-w-md w-full p-8">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-2xl font-bold">Settings</h3>
+                <button id="close-settings" class="text-gray-500 hover:text-gray-700">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">
+                        API Key (Optional)
+                    </label>
+                    <input
+                        type="password"
+                        id="api-key-input"
+                        placeholder="Enter your API key"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent"
+                    >
+                    <p class="text-xs text-gray-500 mt-1">For testing without n8n backend</p>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">
+                        n8n Webhook URL
+                    </label>
+                    <input
+                        type="url"
+                        id="webhook-url-input"
+                        placeholder="https://your-n8n.railway.app/webhook/..."
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent"
+                    >
+                </div>
+
+                <button id="save-settings" class="w-full bg-gradient-to-r from-purple-600 to-indigo-600 text-white py-3 rounded-lg font-semibold hover:opacity-90 transition">
+                    Save Settings
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/app.js"></script>
+
+</body>
+</html>

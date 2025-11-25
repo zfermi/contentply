@@ -1,0 +1,16 @@
+{
+  "name": "contentply",
+  "version": "1.0.0",
+  "description": "AI Content Repurposer - Turn 1 blog post into 10+ platform-specific social posts",
+  "main": "index.html",
+  "scripts": {
+    "dev": "npx serve .",
+    "build": "echo 'Static site - no build needed'"
+  },
+  "keywords": ["content", "repurpose", "ai", "social-media"],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "serve": "^14.2.1"
+  }
+}
