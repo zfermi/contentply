@@ -7,7 +7,44 @@ Quick reference for setting up Contentply on Railway.
 - **n8n**: Workflow automation (backend)
 - **PostgreSQL**: Database for user data and usage tracking
 
-## Step-by-Step Setup
+## 🎯 Best Deployment Strategy
+
+**RECOMMENDED APPROACH:**
+1. **Deploy n8n to Railway** (using template) ← Backend
+2. **Deploy frontend to Vercel** (from GitHub) ← Frontend
+
+This gives you:
+- ✅ Railway handles n8n + PostgreSQL (backend)
+- ✅ Vercel handles static frontend (free tier)
+- ✅ Auto-deploys from GitHub to Vercel
+- ✅ Best performance and lowest cost
+
+## Deployment Options
+
+### ⭐ OPTION A: Hybrid (RECOMMENDED)
+
+**Railway:** Deploy n8n template (backend only)
+**Vercel:** Deploy from GitHub (frontend only)
+
+**Why this is best:**
+- Railway is optimized for n8n
+- Vercel is free for static sites
+- Each service does what it's best at
+- Lowest total cost
+
+### OPTION B: All in Railway
+
+Deploy everything to Railway (frontend + n8n + PostgreSQL).
+
+**When to use:**
+- You want everything in one place
+- Don't want to use Vercel
+
+**Note:** Frontend on Railway uses compute hours (costs more than Vercel free tier)
+
+---
+
+## Step-by-Step Setup (Recommended Path)
 
 ### 1. Create Railway Account
 
@@ -15,12 +52,14 @@ Quick reference for setting up Contentply on Railway.
 2. Sign up with GitHub
 3. Verify your email
 
-### 2. Deploy n8n
+### 2. Deploy n8n to Railway
 
 1. Click "New Project"
 2. Select "Deploy n8n" template
 3. Click "Deploy Now"
 4. Wait 2-3 minutes for deployment
+
+**Note:** Your frontend will be deployed to Vercel (see step 10).
 
 ### 3. Add PostgreSQL
 
@@ -297,13 +336,60 @@ railway restart -s n8n
 railway status
 ```
 
+## Deploy Frontend to Vercel (from GitHub)
+
+Now that your Railway backend is ready, deploy your frontend:
+
+### Option 1: Vercel Dashboard (Easiest)
+
+1. Go to [vercel.com](https://vercel.com)
+2. Sign in with GitHub
+3. Click "New Project"
+4. Select your `contentply` repository
+5. Configure:
+   - Framework Preset: **Other**
+   - Root Directory: `./`
+   - Build Command: (leave empty)
+   - Output Directory: (leave empty)
+6. Click "Deploy"
+7. Wait 1-2 minutes
+
+**Your app is now live!** Every git push will auto-deploy.
+
+### Option 2: Vercel CLI
+
+```bash
+# Install Vercel CLI
+npm i -g vercel
+
+# Deploy from your project directory
+vercel
+
+# Follow prompts, then deploy to production
+vercel --prod
+```
+
+### Configure Frontend
+
+1. Open your Vercel URL
+2. Click the settings icon (gear)
+3. Enter your Railway n8n webhook URL
+4. Save and test!
+
 ## Support
 
 - Railway Docs: https://docs.railway.app
 - Railway Discord: https://discord.gg/railway
 - n8n Docs: https://docs.n8n.io
 - n8n Forum: https://community.n8n.io
+- Vercel Docs: https://vercel.com/docs
 
 ---
 
-**Ready?** Your Railway backend should now be fully configured and ready to receive requests from the Contentply frontend!
+## 🎉 You're Done!
+
+**Railway:** ✅ n8n + PostgreSQL running
+**Vercel:** ✅ Frontend deployed from GitHub
+**Auto-deploys:** ✅ Git push → Vercel auto-updates
+
+Your Contentply app is now fully deployed and ready to use!
