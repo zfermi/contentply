@@ -20,35 +20,41 @@ Get up and running in 15 minutes!
 
 ### 1. Deploy to Railway (Backend) - 5 minutes
 
-```bash
-# Your code is already pushed to GitHub
-# Now deploy the backend:
-```
-
 1. Go to [railway.app](https://railway.app)
 2. Sign in with GitHub
 3. Click "New Project" → "Deploy n8n"
 4. Add PostgreSQL database (click "+ New" → "Database" → "PostgreSQL")
 5. Configure environment variables (see [RAILWAY_SETUP.md](RAILWAY_SETUP.md))
-6. Import workflow from `n8n-workflows/main-repurpose-workflow.json`
-7. Add your Claude API key to n8n credentials
-8. Copy webhook URL
+6. Railway gives you a **FREE URL**: `https://your-app.up.railway.app` 🎉
+7. Import workflow from `n8n-workflows/main-repurpose-workflow.json`
+8. Add your Claude API key to n8n credentials
+9. Copy webhook URL (you'll need this for Vercel)
+
+**FREE Railway URL - no custom domain needed!**
 
 **Detailed guide:** [RAILWAY_SETUP.md](RAILWAY_SETUP.md)
 
-### 2. Deploy to Vercel (Frontend) - 3 minutes
+### 2. Deploy to Vercel (Frontend from GitHub) - 3 minutes
+
+**Option 1: Vercel Dashboard (Recommended)**
+
+1. Go to [vercel.com](https://vercel.com)
+2. Sign in with GitHub
+3. Click "New Project"
+4. Select your `contentply` GitHub repository
+5. Click "Deploy" (use all defaults)
+6. Vercel gives you a **FREE URL**: `https://your-app.vercel.app` 🎉
+7. Every git push auto-deploys!
+
+**Option 2: CLI**
 
 ```bash
-# Option 1: Vercel Dashboard
-# 1. Go to vercel.com
-# 2. Import your GitHub repo
-# 3. Deploy (use defaults)
-
-# Option 2: CLI
 npm i -g vercel
-vercel
-vercel --prod
+vercel          # First deployment
+vercel --prod   # Production deployment
 ```
+
+**FREE Vercel URL - no custom domain needed!**
 
 ### 3. Configure & Test - 2 minutes
 

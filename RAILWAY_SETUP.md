@@ -15,9 +15,12 @@ Quick reference for setting up Contentply on Railway.
 
 This gives you:
 - ✅ Railway handles n8n + PostgreSQL (backend)
+- ✅ **FREE Railway URL**: `https://your-app.up.railway.app` (no custom domain needed!)
 - ✅ Vercel handles static frontend (free tier)
+- ✅ **FREE Vercel URL**: `https://your-app.vercel.app` (or use custom domain)
 - ✅ Auto-deploys from GitHub to Vercel
 - ✅ Best performance and lowest cost
+- ✅ **Total cost: $5/month** (Railway n8n + PostgreSQL)
 
 ## Deployment Options
 
@@ -92,13 +95,17 @@ DATABASE_URL=${{ Postgres.DATABASE_URL }}
 openssl rand -hex 32
 ```
 
-### 5. Set Up Public Domain
+### 5. Get Your Free Railway URL
+
+Railway automatically generates a free public URL for you!
 
 1. Click on n8n service
 2. Go to "Settings" tab
-3. Scroll to "Networking"
-4. Click "Generate Domain"
-5. Your n8n URL will be: `https://xxx.up.railway.app`
+3. Scroll to "Networking" section
+4. You'll see your free URL: `https://xxx.up.railway.app`
+5. If not visible, click "Generate Domain" (it's FREE)
+
+**Note:** This free Railway URL works permanently. Custom domains are optional and only needed if you want a branded URL.
 
 ### 6. Access n8n
 
