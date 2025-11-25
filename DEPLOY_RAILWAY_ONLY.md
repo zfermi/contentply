@@ -21,12 +21,31 @@ Deploy your entire Contentply app to Railway in one project.
 3. Authorize Railway to access your GitHub
 4. Verify your email
 
+**ALTERNATIVE: Deploy from Scratch (No Template)**
+
+If you can't find the right n8n template or want more control:
+1. Click **"New Project"** → **"Empty Project"**
+2. Then click **"+ New"** → **"Docker Image"**
+3. Enter Docker image: `n8nio/n8n:latest`
+4. Railway will deploy n8n from Docker
+
+This works exactly the same as the template!
+
 ### Step 2: Deploy n8n (Backend) (3 minutes)
 
 1. Click **"New Project"**
-2. Select **"Deploy n8n"** from templates
-3. Click **"Deploy Now"**
-4. Wait 2-3 minutes for deployment
+2. In the template gallery, search for **"n8n"**
+3. Look for the **official n8n template** - it should say:
+   - **"n8n"** (simple title)
+   - By: **n8n.io** or **Railway**
+   - Description: "Workflow automation tool"
+4. Click on it, then click **"Deploy Now"**
+5. Wait 2-3 minutes for deployment
+
+**Which template to choose?**
+- Use the **basic "n8n" template** (not n8n with specific integrations)
+- If you see multiple, choose the one with the most stars/deploys
+- Avoid templates like "n8n + Postgres" (we'll add Postgres separately)
 
 You now have: **n8n running** ✅
 
@@ -285,6 +304,26 @@ Contentply (Railway Project)
 ---
 
 ## 🐛 Troubleshooting
+
+### Can't find the right n8n template?
+
+Railway has multiple n8n templates. Here's what to look for:
+
+**BEST OPTION - Use Docker Image Directly:**
+1. Click **"New Project"** → **"Empty Project"**
+2. Click **"+ New"** → **"Docker Image"**
+3. Enter: `n8nio/n8n:latest`
+4. Click "Deploy"
+
+This is actually BETTER than using a template because:
+- ✅ You get the latest n8n version
+- ✅ Full control over configuration
+- ✅ No pre-configured settings to worry about
+
+**If using a template:**
+- Choose the simplest "n8n" template
+- Avoid templates with extra services bundled
+- Look for official Railway or n8n.io templates
 
 ### Frontend not loading
 
